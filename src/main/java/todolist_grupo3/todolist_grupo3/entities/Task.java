@@ -23,6 +23,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private State state;
 
 
 }
