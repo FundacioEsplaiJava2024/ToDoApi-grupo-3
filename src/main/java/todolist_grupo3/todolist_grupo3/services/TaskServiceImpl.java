@@ -12,4 +12,9 @@ public class TaskServiceImpl implements TaskService{
     @Autowired
     private TaskRepository taskRepository;
 
+    @Override
+    public void deleteTask (int id) {
+        taskRepository.deleteById(id);
+    }
+
 }
