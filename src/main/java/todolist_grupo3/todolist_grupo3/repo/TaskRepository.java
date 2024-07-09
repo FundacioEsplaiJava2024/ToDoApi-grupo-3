@@ -7,5 +7,4 @@ import todolist_grupo3.todolist_grupo3.entities.Task;
 
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer>{
-    void deleteById (int id);
 }
