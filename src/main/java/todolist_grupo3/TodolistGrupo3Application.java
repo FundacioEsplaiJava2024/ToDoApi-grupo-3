@@ -1,4 +1,4 @@
-package todolist_grupo3.todolist_grupo3;
+package todolist_grupo3;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

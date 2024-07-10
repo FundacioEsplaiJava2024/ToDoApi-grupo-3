@@ -1,6 +1,9 @@
-package todolist_grupo3.todolist_grupo3.controllers;
+package todolist_grupo3.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -9,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
-import todolist_grupo3.todolist_grupo3.services.TaskService;
+import todolist_grupo3.services.TaskService;
 
 
 @RestController
@@ -19,13 +22,17 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @DeleteMapping ("delete/{id}")
-    public void deleteTask(@PathVariable Integer id) {
+    @DeleteMapping ("/task/{id}")
+    @CrossOrigin("*")
+    public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
         taskService.deleteTask(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
     }
 
-    @PutMapping("/edit/{id}")
-    public void editTask(@PathVariable Integer id, @RequestBody String name) {
+    @PutMapping("/task/{id}")
+    @CrossOrigin("*")
+    public ResponseEntity<?> editTask(@PathVariable Integer id, @RequestBody String name) {
         taskService.editTask(id, name);
+        return ResponseEntity.status(HttpStatus.OK).body("Task edited");
     }
 }
