@@ -20,13 +20,13 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
-    @GetMapping("/getAll")
+    @GetMapping("/tasks")
     @CrossOrigin("*")
     public ResponseEntity<?> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
     }
 
-    @GetMapping("/getTask/{id}")
+    @GetMapping("/task/{id}")
     @CrossOrigin("*")
     public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
         return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
