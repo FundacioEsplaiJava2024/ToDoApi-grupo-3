@@ -1,4 +1,4 @@
-package todolist_grupo3.todolist_grupo3.entities;
+package todolist_grupo3.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

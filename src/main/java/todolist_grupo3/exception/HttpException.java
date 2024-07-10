@@ -1,4 +1,4 @@
-package todolist_grupo3.todolist_grupo3.exception;
+package todolist_grupo3.exception;
 
 import org.springframework.http.HttpStatus;
 

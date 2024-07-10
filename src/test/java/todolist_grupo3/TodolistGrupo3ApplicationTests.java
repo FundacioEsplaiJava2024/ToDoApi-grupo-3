@@ -1,4 +1,4 @@
-package todolist_grupo3.todolist_grupo3;
+package todolist_grupo3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
