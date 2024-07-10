@@ -20,4 +20,9 @@ public class TaskServiceImpl implements TaskService{
         return taskRepository.findAll();
     }
 
+    @Override
+    public Task getTaskById(Integer id){
+        return taskRepository.findById(id).orElse(null);
+    }
+
 }
