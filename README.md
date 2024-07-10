@@ -1,7 +1,7 @@
-spring.datasource.url=jdbc:mysql://localhost:3306/todolist
-spring.datasource.username=root
-spring.datasource.password=root
-spring.jpa.hibernate.ddl-auto=create
-#update
-spring.jpa.generate-ddl=true
-spring.jpa.show-sql=true
+| ENDPOINT     | METHOD | ACTONS                     |
+|--------------|--------|----------------------------|
+| /tasks       | POST   | Create a new task          |
+| /tasks/      | GET    | Get all tasks              |
+| /tasks/:id   | GET    | Get a task by ID           |
+| /tasks/:id   | PUT    | Edit a task by ID          |
+| /tasks/:id   | DELETE | Delete a task by ID        |
