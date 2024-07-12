@@ -33,6 +33,4 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name="state")
     private State state;
-
-
 }
