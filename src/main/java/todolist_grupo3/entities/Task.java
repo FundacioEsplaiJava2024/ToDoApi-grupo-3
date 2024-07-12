@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name="tasks")
 public class Task {
 
-    @Id
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
