@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
-import todolist_grupo3.entities.Task;
+import todolist_grupo3.Requests.CreateTaskRequest;
 import todolist_grupo3.services.TaskService;
 
 
@@ -25,8 +25,8 @@ public class TaskController {
     
     @PostMapping("/task")
     @CrossOrigin("*")
-    public ResponseEntity<?> getById(@RequestBody Task task) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.create(task));
+    public ResponseEntity<?> createTask(@RequestBody CreateTaskRequest createTaskRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.name));
     }
 
     @GetMapping("/tasks")
@@ -40,5 +40,4 @@ public class TaskController {
         public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
             return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
         }
-
 }   

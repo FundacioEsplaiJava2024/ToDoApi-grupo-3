@@ -5,7 +5,7 @@ import java.util.List;
 import todolist_grupo3.entities.Task;
 
 public interface TaskService {
-        public Task create (Task task);
+        Task createTask (String name);
         List<Task> getAllTasks();
         Task getTaskById(Integer id);
 }

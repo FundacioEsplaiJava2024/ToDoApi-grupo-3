@@ -17,8 +17,10 @@ public class TaskServiceImpl implements TaskService{
     private TaskRepository taskRepository;
 
     @Override
-    public Task create(Task task) {
-        Task newTask= Task.builder().name(task.getName()).state(State.INCOMPLETE).build();
+    public Task createTask(String name) {
+        Task newTask= new Task();
+        newTask.setName(name);
+        newTask.setState(State.INCOMPLETE);
         return taskRepository.save(newTask);
     }
     
