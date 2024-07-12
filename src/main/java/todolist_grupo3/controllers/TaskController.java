@@ -27,9 +27,9 @@ public class TaskController {
     }
 
     @GetMapping("/task/{id}")
-    @CrossOrigin("*")
-    public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
-        return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
-    }
+    @CrossOrigin("*") 
+        public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
+        }
 
-}
+}   
