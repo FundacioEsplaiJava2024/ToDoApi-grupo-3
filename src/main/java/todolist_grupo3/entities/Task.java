@@ -1,4 +1,4 @@
-package todolist_grupo3.todolist_grupo3.entities;
+package todolist_grupo3.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name="tasks")
 public class Task {
 
-    @Id
+   @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
