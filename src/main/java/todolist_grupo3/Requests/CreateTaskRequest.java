@@ -1,5 +1,12 @@
-package todolist_grupo3.Requests;
+package todolist_grupo3.requests;
 
+import lombok.Data;
+
+@Data
 public class CreateTaskRequest {
-    public String name;
+    private String name;
+
+    public boolean isValid() {
+        return name != null && !name.trim().isEmpty() && name.length() <= 20;
+    }
 }

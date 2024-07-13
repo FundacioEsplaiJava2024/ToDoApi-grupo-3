@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
-import todolist_grupo3.Requests.CreateTaskRequest;
+import todolist_grupo3.requests.CreateTaskRequest;
 import todolist_grupo3.services.TaskService;
 
 
@@ -26,7 +26,10 @@ public class TaskController {
     @PostMapping("/task")
     @CrossOrigin("*")
     public ResponseEntity<?> createTask(@RequestBody CreateTaskRequest createTaskRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.name));
+        if (!createTaskRequest.isValid()) {
+            throw new RuntimeException("The name cannot be empty and cannot exceed 20 characters");
+        }
+        else return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.getName()));
     }
 
     @GetMapping("/tasks")
