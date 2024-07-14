@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
-import todolist_grupo3.requests.CreateTaskRequest;
 import todolist_grupo3.services.TaskService;
 
 
