@@ -1,4 +1,4 @@
-package todolist_grupo3.controllers;
+package todolist_grupo3.requests;
 
 import lombok.Data;
 
