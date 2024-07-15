@@ -20,6 +20,9 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task createTask(String name) {
+        if (name == null || name.trim().isEmpty() || name.length() > 20) {
+            throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
+        }
         Task newTask= new Task();
         newTask.setName(name);
         newTask.setState(State.INCOMPLETE);
@@ -42,15 +45,15 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void editTask(Integer id, String name) {
+    public Task editTask(Integer id, String name) {
         taskRepository.findById(id).orElseThrow(() -> new HttpException(HttpStatus.NOT_FOUND,
-            "could not find any tank with this id" + id));
+            "Error: could not find any task with this id: " + id));
         if (name == null || name.trim().isEmpty() || name.length() > 20) {
-            throw new HttpException(HttpStatus.BAD_REQUEST, "name must be between 1 and 20 characters");
+            throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
         }
         Task existingTask = taskRepository.findById(id).get();
         existingTask.setName(name);
-        taskRepository.save(existingTask);
+        return taskRepository.save(existingTask);
     }
 
 }

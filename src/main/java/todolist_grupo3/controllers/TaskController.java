@@ -73,8 +73,7 @@ public class TaskController {
     @CrossOrigin("*")
     public ResponseEntity<?> editTask(@PathVariable Integer id, @RequestBody EditNameRequest editNameRequest) {
         try {
-            taskService.editTask(id, editNameRequest.getName());
-            return ResponseEntity.status(HttpStatus.OK).body("Task edited");
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, editNameRequest.getName()));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
