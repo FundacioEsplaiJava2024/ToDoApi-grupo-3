@@ -3,11 +3,13 @@ package todolist_grupo3.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import todolist_grupo3.entities.State;
 import todolist_grupo3.entities.Task;
+import todolist_grupo3.exception.HttpException;
 import todolist_grupo3.repo.TaskRepository;
 
 @Service
@@ -18,6 +20,9 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task createTask(String name) {
+        if (name == null || name.trim().isEmpty() || name.length() > 20) {
+            throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
+        }
         Task newTask= new Task();
         newTask.setName(name);
         newTask.setState(State.INCOMPLETE);
@@ -32,6 +37,23 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public Task getTaskById(Integer id){
         return taskRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void deleteTask (Integer id) {
+        taskRepository.deleteById(id);
+    }
+
+    @Override
+    public Task editTask(Integer id, String name) {
+        taskRepository.findById(id).orElseThrow(() -> new HttpException(HttpStatus.NOT_FOUND,
+            "Error: could not find any task with this id: " + id));
+        if (name == null || name.trim().isEmpty() || name.length() > 20) {
+            throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
+        }
+        Task existingTask = taskRepository.findById(id).get();
+        existingTask.setName(name);
+        return taskRepository.save(existingTask);
     }
 
 }
