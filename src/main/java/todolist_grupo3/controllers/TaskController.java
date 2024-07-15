@@ -41,33 +41,20 @@ public class TaskController {
     @GetMapping("/tasks")
     @CrossOrigin("*")
     public ResponseEntity<?> getAllTasks() {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
-        } catch (HttpException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
     }
 
     @GetMapping("/task/{id}")
     @CrossOrigin("*") 
     public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
-        try {
-            Task task = taskService.getTaskById(id);
+        Task task = taskService.getTaskById(id);
             return ResponseEntity.status(HttpStatus.OK).body(task);
-        } catch (HttpException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }  
     }
 
     @DeleteMapping ("/task/{id}")
     @CrossOrigin("*")
     public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
-        try {
-            taskService.deleteTask(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
-        } catch (HttpException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
     }
 
     @PutMapping("/task/{id}")
