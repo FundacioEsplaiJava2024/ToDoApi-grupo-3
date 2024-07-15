@@ -1,8 +1,13 @@
 package todolist_grupo3.services;
 
+import java.util.List;
+
+import todolist_grupo3.entities.Task;
+
 public interface TaskService {
-    public void deleteTask (Integer id);
-    public void editTask(Integer id, String name);
+        Task createTask (String name);
+        List<Task> getAllTasks();
+        Task getTaskById(Integer id);
+        void deleteTask (Integer id);
+        void editTask(Integer id, String name);
 }
-
-
