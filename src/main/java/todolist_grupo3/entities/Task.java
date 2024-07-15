@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name="tasks")
 public class Task {
-
-   @Id
+    
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Integer id;
@@ -33,6 +33,4 @@ public class Task {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name="state")
     private State state;
-
-
 }
