@@ -45,7 +45,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void editTask(Integer id, String name) {
+    public Task editTask(Integer id, String name) {
         taskRepository.findById(id).orElseThrow(() -> new HttpException(HttpStatus.NOT_FOUND,
             "Error: could not find any task with this id: " + id));
         if (name == null || name.trim().isEmpty() || name.length() > 20) {
@@ -53,7 +53,7 @@ public class TaskServiceImpl implements TaskService{
         }
         Task existingTask = taskRepository.findById(id).get();
         existingTask.setName(name);
-        taskRepository.save(existingTask);
+        return taskRepository.save(existingTask);
     }
 
 }
