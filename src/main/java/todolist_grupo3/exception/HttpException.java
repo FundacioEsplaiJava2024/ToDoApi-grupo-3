@@ -12,4 +12,12 @@ public class HttpException extends RuntimeException{
         super(message);
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "HttpException{" +
+                "status=" + status +
+                ", message='" + getMessage() + '\'' +
+                '}';
+    }
 }

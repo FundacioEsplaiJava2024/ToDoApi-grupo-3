@@ -34,4 +34,16 @@ public class TaskServiceImpl implements TaskService{
         return taskRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public void deleteTask (Integer id) {
+        taskRepository.deleteById(id);
+    }
+
+    @Override
+    public Task editTask(Integer id, String name) {
+        Task existingTask = taskRepository.findById(id).get();
+        existingTask.setName(name);
+        return taskRepository.save(existingTask);
+    }
+
 }
