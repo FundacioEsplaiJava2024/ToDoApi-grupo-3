@@ -40,41 +40,31 @@ public class TaskController {
     @GetMapping("/tasks")
     @CrossOrigin("*")
     public ResponseEntity<?> getAll() {
-        try {
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
-        } catch (HttpException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
+      
     }
 
     @GetMapping("/task/{id}")
     @CrossOrigin("*") 
     public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
-        try {
-            Task task = taskService.getTaskById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(task);
-        } catch (HttpException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }  
+        Task task = taskService.getTaskById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(task);
     }
 
     @DeleteMapping ("/task/{id}")
     @CrossOrigin("*")
     public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
-        try {
-            taskService.deleteTask(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
-        } catch (HttpException e) {
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }
+        taskService.deleteTask(id);
+        return ResponseEntity.status(HttpStatus.OK).body("tarea " + id +" eliminada");
     }
 
     @PutMapping("/task/{id}")
     @CrossOrigin("*")
     public ResponseEntity<?> editTask(@PathVariable Integer id, @RequestBody EditNameRequest editNameRequest) {
         try {
+            Task task=taskService.getTaskById(id);
             taskService.editTask(id, editNameRequest.getName());
-            return ResponseEntity.status(HttpStatus.OK).body("Task edited");
+            return ResponseEntity.status(HttpStatus.OK).body(task);
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }

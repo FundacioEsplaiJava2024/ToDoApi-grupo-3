@@ -20,7 +20,7 @@ CREATE TABLE `tasks` (
 --
 
 LOCK TABLES `tasks` WRITE;
-INSERT INTO `tasks` VALUES (1,'test1','INCOMPLETE'),(2,'test2','COMPLETE'),(3,'test3','INCOMPLETE');
+INSERT INTO `tasks` VALUES (1,'test1','INCOMPLETE'),(2,'test2','COMPLETE'),(3,'test3','INCOMPLETE'),(4,'test4','INCOMPLETE');
 UNLOCK TABLES;
 
 
