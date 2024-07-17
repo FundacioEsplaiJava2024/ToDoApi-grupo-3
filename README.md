@@ -5,3 +5,4 @@
 | /todolist/task/{id}     | GET    | Get a task by ID           |
 | /todolist/task/{id}     | PUT    | Edit a task by ID          |
 | /todolist/task/{id}     | DELETE | Delete a task by ID        |
+| /todolist/task/{id}     | PATCH  | Change state by ID         |

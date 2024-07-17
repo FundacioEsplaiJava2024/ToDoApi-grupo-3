@@ -48,7 +48,6 @@ public class TaskController {
     @CrossOrigin("*")
     public ResponseEntity<?> getAllTasks() {
         return ResponseEntity.status(HttpStatus.OK).body(taskService.getAllTasks());
-      
     }
 
     @GetMapping("/task/{id}")
@@ -73,7 +72,6 @@ public class TaskController {
             if (task == null) {
                 throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
             }
-            
             taskService.deleteTask(id);
             return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
         } catch (HttpException e) {
@@ -107,7 +105,6 @@ public class TaskController {
             if (task == null) {
                 throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
             }
-
             State newState = taskService.changeStateTask(task);
             if (newState.equals(task.getState())) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: Task state not changed");

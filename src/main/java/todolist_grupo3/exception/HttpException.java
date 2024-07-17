@@ -1,7 +1,6 @@
 package todolist_grupo3.exception;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 import lombok.Data;
 
