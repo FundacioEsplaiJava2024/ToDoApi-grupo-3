@@ -1,8 +1,8 @@
 package todolist_grupo3.requests;
 
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 public class EditNameRequest {
     private String name;
 }
