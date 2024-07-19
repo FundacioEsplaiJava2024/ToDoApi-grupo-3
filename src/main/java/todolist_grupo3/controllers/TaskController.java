@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,7 +37,7 @@ public class TaskController {
             if (name == null || name.trim().isEmpty() || name.length() > 20) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
             }
-            else return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.getName()));
+            return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.getName()));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
@@ -56,7 +57,7 @@ public class TaskController {
             if (task == null) {
                 throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
             }
-            else return ResponseEntity.status(HttpStatus.OK).body(task);
+            return ResponseEntity.status(HttpStatus.OK).body(task);
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
@@ -70,10 +71,8 @@ public class TaskController {
             if (task == null) {
                 throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
             }
-            else {
-                taskService.deleteTask(id);
-                return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
-            }
+            taskService.deleteTask(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Task deleted: ");
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
@@ -91,9 +90,24 @@ public class TaskController {
             else if (name == null || name.trim().isEmpty() || name.length() > 20) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
             }
-            else return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, editNameRequest.getName()));
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, name));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
-}   
+
+    @PatchMapping("/task/{id}")
+    @CrossOrigin("*")
+    public ResponseEntity<?> changeTaskStateById(@PathVariable Integer id) {
+        try{
+            Task task = taskService.getTaskById(id);
+            if (task == null) {
+                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
+            }
+            taskService.changeState(id);
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
+        }catch(HttpException ex){
+            return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
+        }
+    }
+}

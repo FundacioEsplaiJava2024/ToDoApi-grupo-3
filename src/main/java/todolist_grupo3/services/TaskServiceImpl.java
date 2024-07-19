@@ -46,4 +46,14 @@ public class TaskServiceImpl implements TaskService{
         return taskRepository.save(existingTask);
     }
 
+    @Override
+    public void changeState(Integer id) {
+        Task task = taskRepository.findById(id).get();
+        if(task.getState().equals(State.INCOMPLETE)){
+            task.setState(State.COMPLETE);
+        }else{
+            task.setState(State.INCOMPLETE);
+        }
+        taskRepository.save(task);
+    }
 }

@@ -8,6 +8,7 @@ public interface TaskService {
         Task createTask (String name);
         List<Task> getAllTasks();
         Task getTaskById(Integer id);
-        public void deleteTask (Integer id);
-        public Task editTask(Integer id, String name);
+        void deleteTask (Integer id);
+        Task editTask(Integer id, String name);
+        void changeState(Integer id);
 }
