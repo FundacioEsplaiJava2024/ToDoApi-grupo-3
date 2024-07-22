@@ -30,6 +30,9 @@ public class Task {
     @Column(nullable = false, name="name")
     private String name;
 
+    @Column(nullable=false,name="description")
+    private String description;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name="state")
     private State state;

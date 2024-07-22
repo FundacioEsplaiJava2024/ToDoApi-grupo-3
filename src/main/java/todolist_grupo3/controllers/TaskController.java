@@ -34,10 +34,11 @@ public class TaskController {
     public ResponseEntity<?> createTask(@RequestBody CreateTaskRequest createTaskRequest) {
         try {
             String name= createTaskRequest.getName();
+            String description=createTaskRequest.getDescription();
             if (name == null || name.trim().isEmpty() || name.length() > 20) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
             }
-            return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.getName()));
+            return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(createTaskRequest.getName(), createTaskRequest.getDescription()));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
@@ -92,6 +93,24 @@ public class TaskController {
             }
             return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, name));
         } catch (HttpException e) {
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/task/{id}/description")
+    @CrossOrigin("*")
+    public ResponseEntity<?> editDescription(@PathVariable Integer id, @RequestBody EditNameRequest editNameRequest){
+        try {
+            Task task = taskService.getTaskById(id);
+            String description=editNameRequest.getDescription();
+            if(task==null){
+                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
+            }
+            else if(description==null|| description.trim().isEmpty()||description.length()>100){
+                throw new HttpException(HttpStatus.BAD_REQUEST,"Error: description must be between 1 and 100");
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.editDescription(id,description));
+        } catch(HttpException e){
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }

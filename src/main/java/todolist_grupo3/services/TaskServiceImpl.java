@@ -17,9 +17,10 @@ public class TaskServiceImpl implements TaskService{
     private TaskRepository taskRepository;
 
     @Override
-    public Task createTask(String name) {
+    public Task createTask(String name,String description) {
         Task newTask= new Task();
         newTask.setName(name);
+        newTask.setDescription(description);
         newTask.setState(State.INCOMPLETE);
         return taskRepository.save(newTask);
     }
@@ -43,6 +44,13 @@ public class TaskServiceImpl implements TaskService{
     public Task editTask(Integer id, String name) {
         Task existingTask = taskRepository.findById(id).get();
         existingTask.setName(name);
+        return taskRepository.save(existingTask);
+    }
+
+    @Override
+    public Task editDescription(Integer id, String description){
+        Task existingTask = taskRepository.findById(id).get();
+        existingTask.setDescription(description);
         return taskRepository.save(existingTask);
     }
 

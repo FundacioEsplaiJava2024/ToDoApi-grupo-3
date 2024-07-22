@@ -5,4 +5,5 @@ import lombok.Getter;
 @Getter
 public class EditNameRequest {
     private String name;
+    private String description;
 }
