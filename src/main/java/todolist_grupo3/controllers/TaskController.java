@@ -72,7 +72,7 @@ public class TaskController {
                 throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
             }
             taskService.deleteTask(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Task deleted: ");
+            return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
