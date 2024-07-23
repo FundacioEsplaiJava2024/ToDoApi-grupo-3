@@ -15,12 +15,25 @@ CREATE TABLE `tasks` (
   PRIMARY KEY (`id`)
 );
 
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) UNIQUE NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- Table structure for table `user`
+
 --
--- Dumping data for table `tasks`
+-- Dumping data for table `tasks` and User
 --
 
 LOCK TABLES `tasks` WRITE;
 INSERT INTO `tasks` VALUES (1,'test1','INCOMPLETE'),(2,'test2','COMPLETE'),(3,'test3','INCOMPLETE');
+LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES (1,'pato','Pa1o!1234', "pato@pato"),(2,'gallina','Gal1ina!1234', "gallina@gallina");
 UNLOCK TABLES;
 
 

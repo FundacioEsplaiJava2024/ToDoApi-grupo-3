@@ -31,7 +31,7 @@ public class UserController {
             if (username == null || username.trim().isEmpty() || username.length() > 17) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: username must be between 1 and 17 characters");
             }
-            if (password == null || password.trim().isEmpty() || password.length() >= 25 || password.length() < 8) {
+            if (password == null || password.trim().isEmpty() || password.length() > 25 || password.length() < 8) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: password must be between 8 and 25 characters");
             }
             if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+")) {
@@ -40,6 +40,10 @@ public class UserController {
             if (email == null || email.trim().isEmpty() || !email.matches("^.+@.+$")) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: invalid email address");
             }
+            /*Pendiente de hacer
+            if (userService.getEmail(email) != null) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: email already exists");
+            }*/
             return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(username, password, email));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
