@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
+import todolist_grupo3.exception.HttpException;
 import todolist_grupo3.requests.CreateUserRequest;
 import todolist_grupo3.services.UserService;
 
@@ -23,9 +24,26 @@ public class UserController {
     @PostMapping("/user")
     @CrossOrigin("*")
     public ResponseEntity<?> createUser(@RequestBody CreateUserRequest createUserRequest) {
-        String username = createUserRequest.getUsername();
-        String password = createUserRequest.getPassword();
-        String email = createUserRequest.getEmail();
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(username, password, email));
+        try {
+            String username = createUserRequest.getUsername();
+            String password = createUserRequest.getPassword();
+            String email = createUserRequest.getEmail();
+            if (username == null || username.trim().isEmpty() || username.length() > 17) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: username must be between 1 and 17 characters");
+            }
+            if (password == null || password.trim().isEmpty() || password.length() >= 25 || password.length() < 8) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: password must be between 8 and 25 characters");
+            }
+            if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]+")) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: password must contain at least one lowercase letter, one uppercase letter, one digit, one special character and it can't be any other kind");
+            }
+            if (email == null || email.trim().isEmpty() || !email.matches("^.+@.+$")) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: invalid email address");
+            }
+            return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(username, password, email));
+        } catch (HttpException e) {
+            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
+        }
+        
     }
 }
