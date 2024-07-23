@@ -5,9 +5,9 @@ import org.springframework.stereotype.Repository;
 
 import todolist_grupo3.entities.User;
 
-
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface UserRepository extends JpaRepository<User, Integer> {
+    User findByUsername(String username);
 
+    User findByEmail(String email);
 }
