@@ -41,18 +41,29 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public Task editTask(Integer id, String name) {
+    public Task editTask(Integer id,  String name, String description) {
         Task existingTask = taskRepository.findById(id).get();
-        existingTask.setName(name);
+        if(name==null || name.trim().isEmpty()){
+            existingTask.setDescription(description);
+            //existingTask.getName();
+        }
+        else if(description==null || description.trim().isEmpty()){  
+            existingTask.setName(name);
+        }
+        else {
+            existingTask.setName(name);
+            existingTask.setDescription(description);
+        }
+
         return taskRepository.save(existingTask);
     }
 
-    @Override
+    /*@Override
     public Task editDescription(Integer id, String description){
         Task existingTask = taskRepository.findById(id).get();
         existingTask.setDescription(description);
         return taskRepository.save(existingTask);
-    }
+    }*/
 
     @Override
     public void changeState(Integer id) {
