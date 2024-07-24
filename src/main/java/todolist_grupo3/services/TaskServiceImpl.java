@@ -45,15 +45,11 @@ public class TaskServiceImpl implements TaskService {
     public Task editTask(Integer id, String name, String description) {
         Task existingTask = taskRepository.findById(id).get();
         if (name == null || name.trim().isEmpty()) {
-            existingTask.setDescription(description);
-           
-        } else if (description == null || description.trim().isEmpty()) {
-            existingTask.setName(name);
-            
-        } else {
-            existingTask.setName(name);
-            existingTask.setDescription(description);
+            name = existingTask.getName();
         }
+        existingTask.setName(name);
+        existingTask.setDescription(description);
+
         return taskRepository.save(existingTask);
     }
 
