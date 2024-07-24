@@ -16,12 +16,22 @@ CREATE TABLE `tasks` (
   PRIMARY KEY (`id`)
 );
 
---
--- Dumping data for table `tasks`
---
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(255) UNIQUE NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(255) UNIQUE NOT NULL,
+  PRIMARY KEY (`id`)
+);
 
 LOCK TABLES `tasks` WRITE;
 INSERT INTO `tasks` VALUES (1,'test1','Descripción1','INCOMPLETE'),(2,'test2','Descripción2','COMPLETE'),(3,'test3','Descripción3','INCOMPLETE');
+LOCK TABLES `users` WRITE;
+INSERT INTO `users` VALUES (1,'pato','Pa1o!1234', "pato@pato"),(2,'gallina','Gal1ina!1234', "gallina@gallina");
 UNLOCK TABLES;
+
+
+
 
 

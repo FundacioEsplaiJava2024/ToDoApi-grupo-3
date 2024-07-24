@@ -10,6 +10,5 @@ public interface TaskService {
         Task getTaskById(Integer id);
         void deleteTask (Integer id);
         Task editTask(Integer id, String name, String description);
-        //Task editDescription(Integer id, String description);
         void changeState(Integer id);
 }

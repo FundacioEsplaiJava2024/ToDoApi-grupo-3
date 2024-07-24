@@ -21,20 +21,19 @@ import todolist_grupo3.requests.CreateTaskRequest;
 import todolist_grupo3.requests.EditTaskRequest;
 import todolist_grupo3.services.TaskService;
 
-
 @RestController
 @RequestMapping("/todolist")
 @AllArgsConstructor
 public class TaskController {
+
     @Autowired
     private TaskService taskService;
-    
+
     @PostMapping("/task")
     @CrossOrigin("*")
     public ResponseEntity<?> createTask(@RequestBody CreateTaskRequest createTaskRequest) {
         try {
-            String name= createTaskRequest.getName();
-            String description=createTaskRequest.getDescription();
+            String name = createTaskRequest.getName();
             if (name == null || name.trim().isEmpty() || name.length() > 20) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters");
             }
@@ -51,12 +50,12 @@ public class TaskController {
     }
 
     @GetMapping("/task/{id}")
-    @CrossOrigin("*") 
+    @CrossOrigin("*")
     public ResponseEntity<?> getTaskById(@PathVariable Integer id) {
         try {
             Task task = taskService.getTaskById(id);
             if (task == null) {
-                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
+                throw new HttpException(HttpStatus.NOT_FOUND, "Error: Task not found");
             }
             return ResponseEntity.status(HttpStatus.OK).body(task);
         } catch (HttpException e) {
@@ -64,13 +63,13 @@ public class TaskController {
         }
     }
 
-    @DeleteMapping ("/task/{id}")
+    @DeleteMapping("/task/{id}")
     @CrossOrigin("*")
     public ResponseEntity<?> deleteTask(@PathVariable Integer id) {
         try {
             Task task = taskService.getTaskById(id);
             if (task == null) {
-                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
+                throw new HttpException(HttpStatus.NOT_FOUND, "Error: Task not found");
             }
             taskService.deleteTask(id);
             return ResponseEntity.status(HttpStatus.OK).body("Task deleted");
@@ -81,59 +80,39 @@ public class TaskController {
 
     @PutMapping("/task/{id}")
     @CrossOrigin("*")
-    public ResponseEntity<?> editTask(@PathVariable Integer id, @RequestBody EditTaskRequest editTaskRequest){
+    public ResponseEntity<?> editTask(@PathVariable Integer id, @RequestBody EditTaskRequest editTaskRequest) {
         try {
             Task task = taskService.getTaskById(id);
             if (task == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("task does not exist");
             }
-            String name= editTaskRequest.getName().orElse(task.getName());
-            String description=editTaskRequest.getDescription().orElse(task.getDescription());
-            if (task == null) {
-                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
-            }
-            else if (name.length() > 20 || description.length() > 100) {
+            String name = editTaskRequest.getName().orElse(task.getName());
+            String description = editTaskRequest.getDescription().orElse(task.getDescription());
+
+            if (name.length() > 20 || description.length() > 100) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters and descriptionmust be between 1 and 100");
             }
 
-            if(name.trim().isEmpty() && description.trim().isEmpty()){
+            if (name.trim().isEmpty() && description.trim().isEmpty()) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name and description must be filled");
             }
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, name,description));
+            return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, name, description));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
     }
 
-    /*@PutMapping("/task/{id}/description")
-    @CrossOrigin("*")
-    public ResponseEntity<?> editDescription(@PathVariable Integer id, @RequestBody EditTaskRequest editTaskRequest){
-        try {
-            Task task = taskService.getTaskById(id);
-            String description=editTaskRequest.getDescription();
-            if(task==null){
-                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
-            }
-            else if(description==null|| description.trim().isEmpty()||description.length()>100){
-                throw new HttpException(HttpStatus.BAD_REQUEST,"Error: description must be between 1 and 100");
-            }
-            return ResponseEntity.status(HttpStatus.OK).body(taskService.editDescription(id,description));
-        } catch(HttpException e){
-            return ResponseEntity.status(e.getStatus()).body(e.getMessage());
-        }
-    }*/
-
     @PatchMapping("/task/{id}")
     @CrossOrigin("*")
     public ResponseEntity<?> changeTaskStateById(@PathVariable Integer id) {
-        try{
+        try {
             Task task = taskService.getTaskById(id);
             if (task == null) {
-                throw new HttpException(HttpStatus.NOT_FOUND,"Error: Task not found");
+                throw new HttpException(HttpStatus.NOT_FOUND, "Error: Task not found");
             }
             taskService.changeState(id);
             return ResponseEntity.status(HttpStatus.OK).body(taskService.getTaskById(id));
-        }catch(HttpException ex){
+        } catch (HttpException ex) {
             return ResponseEntity.status(ex.getStatus()).body(ex.getMessage());
         }
     }
