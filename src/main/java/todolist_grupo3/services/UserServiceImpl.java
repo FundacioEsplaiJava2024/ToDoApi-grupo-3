@@ -9,7 +9,8 @@ import todolist_grupo3.repo.UserRepository;
 
 @Service
 @AllArgsConstructor
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
+
     @Autowired
     private UserRepository userRepository;
 
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService{
         newUser.setUsername(username);
         newUser.setPassword(password);
         newUser.setEmail(email);
-        
+
         return userRepository.save(newUser);
     }
 }

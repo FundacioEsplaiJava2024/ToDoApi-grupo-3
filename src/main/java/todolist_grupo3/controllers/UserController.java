@@ -18,6 +18,7 @@ import todolist_grupo3.services.UserService;
 @RequestMapping("/todolist")
 @AllArgsConstructor
 public class UserController {
+
     @Autowired
     private UserService userService;
 
@@ -48,6 +49,6 @@ public class UserController {
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
-        
+
     }
 }

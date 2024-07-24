@@ -11,6 +11,7 @@ DROP TABLE IF EXISTS `tasks`;
 CREATE TABLE `tasks` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `description` varchar(255) NOT NULL,
   `state` enum('COMPLETE','INCOMPLETE') NOT NULL,
   PRIMARY KEY (`id`)
 );
@@ -24,16 +25,13 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`)
 );
 
--- Table structure for table `user`
-
---
--- Dumping data for table `tasks` and User
---
-
 LOCK TABLES `tasks` WRITE;
-INSERT INTO `tasks` VALUES (1,'test1','INCOMPLETE'),(2,'test2','COMPLETE'),(3,'test3','INCOMPLETE');
+INSERT INTO `tasks` VALUES (1,'test1','Descripción1','INCOMPLETE'),(2,'test2','Descripción2','COMPLETE'),(3,'test3','Descripción3','INCOMPLETE');
 LOCK TABLES `users` WRITE;
 INSERT INTO `users` VALUES (1,'pato','Pa1o!1234', "pato@pato"),(2,'gallina','Gal1ina!1234', "gallina@gallina");
 UNLOCK TABLES;
+
+
+
 
 
