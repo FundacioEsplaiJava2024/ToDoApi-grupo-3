@@ -9,8 +9,8 @@ USE `todolist` ;
 --DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS users (
   `id` int NOT NULL AUTO_INCREMENT,
-  `username` varchar(20) UNIQUE NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `username` varchar(17) UNIQUE NOT NULL,
+  `password` varchar(25) NOT NULL,
   `email` varchar(40) UNIQUE NOT NULL,
   `register_date` date NOT NULL,
   `role` enum ('ADMIN','USER') DEFAULT NULL,
