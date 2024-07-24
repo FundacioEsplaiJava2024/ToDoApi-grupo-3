@@ -46,8 +46,10 @@ public class TaskServiceImpl implements TaskService {
         Task existingTask = taskRepository.findById(id).get();
         if (name == null || name.trim().isEmpty()) {
             existingTask.setDescription(description);
+           
         } else if (description == null || description.trim().isEmpty()) {
             existingTask.setName(name);
+            
         } else {
             existingTask.setName(name);
             existingTask.setDescription(description);

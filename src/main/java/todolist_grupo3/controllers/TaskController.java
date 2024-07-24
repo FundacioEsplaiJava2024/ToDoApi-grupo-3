@@ -92,9 +92,10 @@ public class TaskController {
             if (name.length() > 20 || description.length() > 100) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name must be between 1 and 20 characters and descriptionmust be between 1 and 100");
             }
-
-            if (name.trim().isEmpty() && description.trim().isEmpty()) {
-                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name and description must be filled");
+           
+            if ( name.equals(task.getName()) && description.equals(task.getDescription()) || name.trim().isEmpty() && description.trim().isEmpty() 
+            || name.equals(task.getName()) && description.trim().isEmpty() || name.trim().isEmpty() && description.equals(task.getDescription())) {
+                throw new HttpException(HttpStatus.BAD_REQUEST, "Error: name and/or description must be filled");
             }
             return ResponseEntity.status(HttpStatus.OK).body(taskService.editTask(id, name, description));
         } catch (HttpException e) {
