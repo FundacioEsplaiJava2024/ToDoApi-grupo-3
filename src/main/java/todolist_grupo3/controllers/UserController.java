@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import todolist_grupo3.exception.HttpException;
-import todolist_grupo3.requests.CreateUserRequest;
+import todolist_grupo3.requests.RegisterRequest;
 import todolist_grupo3.services.UserService;
 
 @RestController
@@ -24,7 +24,7 @@ public class UserController {
 
     @PostMapping("/user")
     @CrossOrigin("*")
-    public ResponseEntity<?> createUser(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<?> createUser(@RequestBody RegisterRequest createUserRequest) {
         try {
             String username = createUserRequest.getUsername();
             String password = createUserRequest.getPassword();
