@@ -4,27 +4,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import todolist_grupo3.exception.HttpException;
-import todolist_grupo3.requests.CreateUserRequest;
+import todolist_grupo3.requests.LoginRequest;
+import todolist_grupo3.requests.RegisterRequest;
 import todolist_grupo3.services.UserService;
 
 @RestController
-@RequestMapping("/todolist")
+@RequestMapping("/todolist/user")
 @AllArgsConstructor
 public class UserController {
 
     @Autowired
     private UserService userService;
 
+
+    /* 
     @PostMapping("/user")
     @CrossOrigin("*")
-    public ResponseEntity<?> createUser(@RequestBody CreateUserRequest createUserRequest) {
+    public ResponseEntity<?> createUser(@RequestBody RegisterRequest createUserRequest) {
         try {
             String username = createUserRequest.getUsername();
             String password = createUserRequest.getPassword();
@@ -44,11 +48,27 @@ public class UserController {
             /*Pendiente de hacer
             if (userService.getEmail(email) != null) {
                 throw new HttpException(HttpStatus.BAD_REQUEST, "Error: email already exists");
-            }*/
+            }*//* 
             return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(username, password, email));
         } catch (HttpException e) {
             return ResponseEntity.status(e.getStatus()).body(e.getMessage());
         }
 
+    }*/
+ 
+
+    // will handler the exception later
+     @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody  RegisterRequest request){
+        //userService.register(request.getUsername(), request.getEmail(), request.getPassword());
+        return ResponseEntity.status(HttpStatus.CREATED)
+        .body(userService.register(request.getUsername(),
+         request.getEmail(), request.getPassword()));
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticate(@RequestBody @Valid LoginRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.login(request.getUsername(), request.getPassword()));
+    }
+    
 }
