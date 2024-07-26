@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tasks (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `description` varchar(60) NOT NULL,
+  `description` varchar(60) default null,
   `state` enum('COMPLETE','INCOMPLETE') NOT NULL,
   `user_id` int NOT NULL,
    PRIMARY KEY (`id`),

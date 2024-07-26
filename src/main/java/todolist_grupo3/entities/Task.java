@@ -34,7 +34,7 @@ public class Task {
     @Column(nullable = false, name="name")
     private  String name;
 
-    @Column(nullable=false,name="description")
+    @Column(name="description")
     private String description;
 
     @Enumerated(EnumType.STRING)
