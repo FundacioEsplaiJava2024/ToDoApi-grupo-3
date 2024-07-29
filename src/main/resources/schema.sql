@@ -10,7 +10,7 @@ USE `todolist` ;
 CREATE TABLE IF NOT EXISTS users (
   `id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(17) UNIQUE NOT NULL,
-  `password` varchar(25) NOT NULL,
+  `password` varchar(250) NOT NULL,
   `email` varchar(40) UNIQUE NOT NULL,
   `register_date` date NOT NULL,
   `role` enum ('ADMIN','USER') DEFAULT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS tasks (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
-  `description` varchar(60) NOT NULL,
+  `description` varchar(60) default null,
   `state` enum('COMPLETE','INCOMPLETE') NOT NULL,
   `user_id` int NOT NULL,
    PRIMARY KEY (`id`),
